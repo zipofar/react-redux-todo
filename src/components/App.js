@@ -1,15 +1,14 @@
 import React from 'react';
-import * as actions from '../actions';
 
 class App extends React.Component {
 
 updateText = (e) => {
-    this.props.dispatch(actions.updateNewTaskText({ text: e.target.value }));
+    this.props.updateNewTaskText({ text: e.target.value });
 };
 
 addTask = (e) => {
     e.preventDefault();
-    this.props.dispatch(actions.addTask({ text: this.props.newTaskText }));
+    this.props.addTask({ text: this.props.newTaskText });
 };
 
 renderTasks = (tasksFromState) => {
