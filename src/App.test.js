@@ -18,7 +18,7 @@ it('Test1', () => {
 it('Test2', () => {
     const store = createStore(reducers);
     const task1 = buildTask(0, 'na-na');
-    store.dispatch(addTask(task1));
+    store.dispatch(addTask({task: task1}));
     expect(store.getState()).toEqual({
         tasks: {0: task1},
         comments: {},
@@ -29,9 +29,9 @@ it('Test3', () => {
     const store = createStore(reducers);
     const task1 = buildTask(0, 'na-na');
     const task2 = buildTask(1, 'bla-bla');
-    store.dispatch(addTask(task1));
-    store.dispatch(addTask(task2));
-    store.dispatch(removeTask(0));
+    store.dispatch(addTask({task: task1}));
+    store.dispatch(addTask({task: task2}));
+    store.dispatch(removeTask({id: 0}));
     expect(store.getState()).toEqual({
         tasks: {1: task2},
         comments: {},
@@ -44,22 +44,22 @@ it('Test4', () => {
     const task2 = buildTask(1, 'bla-bla');
     const comment1 = buildComment(0, task1, 'comment1');
     const comment2 = buildComment(1, task1, 'comment2');
-    store.dispatch(addTask(task1));
-    store.dispatch(addTask(task2));
-    store.dispatch(addComment(comment1));
-    store.dispatch(addComment(comment2));
+    store.dispatch(addTask({task: task1}));
+    store.dispatch(addTask({task: task2}));
+    store.dispatch(addComment({comment: comment1}));
+    store.dispatch(addComment({comment: comment2}));
     expect(store.getState()).toEqual({
         tasks: {0: task1, 1: task2},
         comments: {0: comment1, 1: comment2},
     });
 
-    store.dispatch(removeComment(0));
+    store.dispatch(removeComment({id: 0}));
     expect(store.getState()).toEqual({
         tasks: {0: task1, 1: task2},
         comments: {1: comment2},
     });
 
-    store.dispatch(removeTask(0));
+    store.dispatch(removeTask({id:0}));
     expect(store.getState()).toEqual({
         tasks: {1: task2},
         comments: {},
