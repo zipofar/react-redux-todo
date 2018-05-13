@@ -12,3 +12,16 @@ export const removeTask = id => ({
     },
 });
 
+export const addComment = comment => ({
+    type: 'ADD_COMMENT',
+    payload: {
+        comment,
+    },
+});
+
+export const removeComment = id => ({
+    type: 'REMOVE_COMMENT',
+    payload: {
+        id,
+    },
+});
