@@ -1,5 +1,7 @@
 import React from 'react';
 
+const filters = [['all','all'], ['active','active'], ['finished','finished']];
+
 export default class TasksList extends React.Component {
 
   renderList() {
@@ -22,10 +24,15 @@ export default class TasksList extends React.Component {
 
   renderFilter() {
     return(
-      <div class="col-8 mt-3 d-flex justify-content-around">
-        all
-        <button class="btn btn-link border-0 p-0 app-filter-active">active</button>
-        <button class="btn btn-link border-0 p-0 app-filter-finished">finished</button>
+      <div className="col-8 mt-3 d-flex justify-content-around">
+        { filters.map(([name, state]) => {
+          if () {
+          
+          }
+          return(
+            <button className="btn btn-link border-0 p-0 app-filter-active">active</button>   
+        );
+        }) }
       </div>    
     );
   }
