@@ -10,6 +10,11 @@ const tasks = handleActions({
     [actions.removeTask](state, { payload: { id } }) {
         return _.omit(state, id);
     },
+    [actions.toggleTaskState](state, { payload: { id } }) {
+        const newTasks = { ...state };
+        newTasks[id].state = newTasks[id].state === 'active' ? 'finished' : 'active';
+        return newTasks;
+    },
 }, {});
 
 const newTaskText = handleActions({

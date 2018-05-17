@@ -4,17 +4,48 @@ const filters = [['all','all'], ['active','active'], ['finished','finished']];
 
 export default class TasksList extends React.Component {
 
+  state = { activeFilter: 'all' };
+
+  changeFilter = state => (e) => {
+    e.preventDefault();
+    this.setState({ activeFilter: state });
+  }
+
+  toggleTaskState = id => (e) => {
+    this.props.toggleTaskState({ id });
+  }
+
+  removeTask = id => (e) => {
+    this.props.removeTask({ id, });
+  }
+
   renderList() {
     const { tasks } = this.props;
 
     return(
       <ul className="list-group">
-        { tasks.map(task => {
+        { tasks
+          .filter(task => {
+            return this.state.activeFilter === 'all' ? true : task.state === this.state.activeFilter
+          })
+          .map(task => {
           return(
             <li key={task.id} className="list-group-item d-flex justify-content-end">
-              <button className="btn border-0 p-0 app-toggle-state mr-3">-</button>
-              <div className="mr-auto">{task.text}</div>
-              <button className="btn border-0 p-0 app-remove-task">x</button>
+              <button 
+                onClick={this.toggleTaskState(task.id)}
+                className="btn border-0 p-0 app-toggle-state mr-3"
+              >
+                -
+              </button>
+              <div className="mr-auto">
+                {task.state === 'active' ? task.text : <s>{task.text}</s>}
+              </div>
+              <button
+                onClick={this.removeTask(task.id)}
+                className="btn border-0 p-0 app-remove-task"
+              >
+                x
+              </button>
             </li>
           );                    
         }) }
@@ -26,12 +57,18 @@ export default class TasksList extends React.Component {
     return(
       <div className="col-8 mt-3 d-flex justify-content-around">
         { filters.map(([name, state]) => {
-          if () {
-          
+          if (state === this.state.activeFilter) {
+            return name;
           }
           return(
-            <button className="btn btn-link border-0 p-0 app-filter-active">active</button>   
-        );
+            <button
+              onClick={this.changeFilter(state)}
+              key={state}
+              className={'btn btn-link border-0 p-0 app-filter-'+name}
+            >
+              {name}
+            </button>  
+          );
         }) }
       </div>    
     );
