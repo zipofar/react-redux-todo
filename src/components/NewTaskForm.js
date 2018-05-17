@@ -1,27 +1,25 @@
 import React from 'react';
+import { reduxForm, Field } from 'redux-form';
 
-export default class NewTaskForm extends React.Component {
+class NewTaskForm extends React.Component {
 
-  updateText = (e) => {
-      this.props.updateNewTaskText({ text: e.target.value });
-  };
-
-  addTask = (e) => {
-      e.preventDefault();
-      this.props.addTask({ text: this.props.newTaskText });
+  addTask = (values) => {
+    console.log(values)
+    this.props.addTask(values);
+    this.props.reset();
   };
  
 
   render() {
     return(
       <div className="col-5">
-        <form onSubmit={this.addTask} className="form-inline">
+        <form onSubmit={this.props.handleSubmit(this.addTask)} className="form-inline">
           <div className="form-group mx-sm-3">
-            <input
-              onChange={this.updateText} 
+            <Field
               type="text" 
-              required 
-              value={this.props.newTaskText}
+              required
+              component="input"
+              name="text"
             />
             <button type="submit" className="btn btn-primary btn-sm">Add</button>
           </div>
@@ -31,3 +29,7 @@ export default class NewTaskForm extends React.Component {
   }
 
 }
+
+export default reduxForm({
+  form: 'newTask',
+})(NewTaskForm);
