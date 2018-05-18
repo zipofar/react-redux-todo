@@ -6,5 +6,4 @@ export const addTask = createAction('ADD_TASK', task =>
 export const removeTask = createAction('REMOVE_TASK');
 export const toggleTaskState = createAction('TOGGLE_TASK_STATE');
 
-export const updateNewTaskText = createAction('NEW_TASK_TEXT_UPDATE');
-
+export const toggleModalTaskUpdate = createAction('TOGGLE_MODAL_TASK_UPDATE');

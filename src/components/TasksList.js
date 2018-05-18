@@ -19,6 +19,10 @@ export default class TasksList extends React.Component {
     this.props.removeTask({ id, });
   }
 
+  showUpdateTaskModal = id => (e) => {
+  
+  }
+
   renderList() {
     const { tasks } = this.props;
 
@@ -42,10 +46,11 @@ export default class TasksList extends React.Component {
               </div>
               <button
                 onClick={this.removeTask(task.id)}
-                className="btn border-0 p-0 app-remove-task"
+                className="btn btn-danger app-remove-task"
               >
-                x
+              	del  
               </button>
+			  <button onClick={this.showUpdateTaskModal(id)} className="btn btn-warning">edit</button>
             </li>
           );                    
         }) }
