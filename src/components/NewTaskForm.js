@@ -4,7 +4,6 @@ import { reduxForm, Field } from 'redux-form';
 class NewTaskForm extends React.Component {
 
   addTask = (values) => {
-    console.log(values)
     this.props.addTask(values);
     this.props.reset();
   };

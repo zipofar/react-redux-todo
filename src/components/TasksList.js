@@ -1,4 +1,5 @@
 import React from 'react';
+import ModalTaskUpdate from '../containers/ModalTaskUpdate';
 
 const filters = [['all','all'], ['active','active'], ['finished','finished']];
 
@@ -19,8 +20,8 @@ export default class TasksList extends React.Component {
     this.props.removeTask({ id, });
   }
 
-  showUpdateTaskModal = id => (e) => {
-  
+  toggleModalUpdateTask = id => (e) => {
+    this.props.toggleModalTaskUpdate({ modalState: { taskId: id, state: 'open' } }); 
   }
 
   renderList() {
@@ -50,7 +51,7 @@ export default class TasksList extends React.Component {
               >
               	del  
               </button>
-			  <button onClick={this.showUpdateTaskModal(id)} className="btn btn-warning">edit</button>
+	      		  <button onClick={this.toggleModalUpdateTask(task.id)} className="btn btn-warning">edit</button>
             </li>
           );                    
         }) }
@@ -83,9 +84,9 @@ export default class TasksList extends React.Component {
     if (this.props.tasks.length === 0) {
       return null;
     }
-
     return(
       <div className="mt-3">
+        <ModalTaskUpdate />
         { this.renderList() }
         { this.renderFilter() }
       </div>

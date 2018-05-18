@@ -18,15 +18,10 @@ const tasks = handleActions({
     },
 }, {});
 
-const newTaskText = handleActions({
-    [actions.updateNewTaskText](state, { payload: { text } }) {
-        return text;
-    },
-    [actions.addTask]() {
-        return '';
-    },    
-}, '');
+const modalTaskUpdate = handleActions({
+  [actions.toggleModalTaskUpdate](state, { payload: { modalState } }) {
+    return { ...modalState };
+  },
+}, { state: 'close' });
 
-const
-
-export default combineReducers({ tasks, newTaskText, form: formReducer });
+export default combineReducers({ tasks, modalTaskUpdate, form: formReducer });
