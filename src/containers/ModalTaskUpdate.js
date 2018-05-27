@@ -6,6 +6,8 @@ import { tasksSelector } from '../selectors';
 const mapStateToProps = state => ({
   modalTaskUpdate: state.modalTaskUpdate,
   tasks: tasksSelector(state),
+  initialValues: state.loadTaskForUpdate,
+  enableReinitialize: true,
 });
 
 const Container = connect(mapStateToProps, actionsCreators)(ModalTaskUpdate);

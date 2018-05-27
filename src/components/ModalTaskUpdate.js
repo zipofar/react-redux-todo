@@ -6,11 +6,13 @@ class ModalTaskUpdate extends React.Component {
   closeModal = e => {
     e.preventDefault();
     this.props.toggleModalTaskUpdate({ modalState: { state: 'close' } });
+    this.props.reset();
   };
 
   saveUpdatedTask = id => (values) => {
-    console.log(id) 
-    console.log(values) 
+    this.props.updateTask({ task: {id: id, ...values} });
+    this.props.toggleModalTaskUpdate({ modalState: { state: 'close' } });
+    this.props.reset();
   };
 
   render() {
@@ -19,6 +21,7 @@ class ModalTaskUpdate extends React.Component {
     }
     const { taskId } = this.props.modalTaskUpdate;
     const task = this.props.tasks.filter(({ id }) => id === taskId)[0];
+    this.props.loadTask({ task, });
     return(
       <div className="modal" style={{display: 'block'}} tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
@@ -32,6 +35,12 @@ class ModalTaskUpdate extends React.Component {
             <form onSubmit={this.props.handleSubmit(this.saveUpdatedTask(taskId))}>
               <div className="modal-body">
                 <p>{ task.text }</p>
+                <Field
+                  type="text" 
+                  required
+                  component="input"
+                  name="text"
+                />
               </div>
               <div className="modal-footer">
                 <button type="submit" className="btn btn-primary">Save changes</button>
@@ -46,5 +55,5 @@ class ModalTaskUpdate extends React.Component {
 }
 
 export default reduxForm({
-  form: 'updtaeTask',
+  form: 'updateTask',
 })(ModalTaskUpdate);

@@ -8,6 +8,12 @@ const tasks = handleActions({
     [actions.addTask](state, { payload: { task } }) {
         return { ...state, [task.id]: task };
     },
+    [actions.updateTask](state, { payload: { task } }) {
+        const tasksWithoutCurrent = _.omit(state, [task.id]);
+        const currentTask = state[task.id];
+        const updatedTask = { ...currentTask, ...task }
+        return { ...tasksWithoutCurrent, [task.id]: updatedTask };
+    },
     [actions.removeTask](state, { payload: { id } }) {
         return _.omit(state, id);
     },
@@ -24,4 +30,15 @@ const modalTaskUpdate = handleActions({
   },
 }, { state: 'close' });
 
-export default combineReducers({ tasks, modalTaskUpdate, form: formReducer });
+const loadTaskForUpdate = handleActions({
+  [actions.loadTask](state, { payload: { task } }) {
+    return { ...task };
+  }
+}, {text: 'INIT-TEXT'});
+
+export default combineReducers({
+  tasks,
+  modalTaskUpdate,
+  form: formReducer,
+  loadTaskForUpdate,
+});
