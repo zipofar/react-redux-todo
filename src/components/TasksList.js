@@ -22,6 +22,10 @@ export default class TasksList extends React.Component {
 
   toggleModalUpdateTask = id => (e) => {
     this.props.toggleModalTaskUpdate({ modalState: { taskId: id, state: 'open' } }); 
+		const taskId = id;
+		const task = this.props.tasks.filter(({ id }) => id === taskId)[0];
+		this.props.loadTask({ task, });
+
   }
 
   renderList() {
@@ -84,9 +88,10 @@ export default class TasksList extends React.Component {
     if (this.props.tasks.length === 0) {
       return null;
     }
+
     return(
       <div className="mt-3">
-        <ModalTaskUpdate />
+				{ this.props.modalTaskUpdate.state === 'open' ? <ModalTaskUpdate /> : null }
         { this.renderList() }
         { this.renderFilter() }
       </div>

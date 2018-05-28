@@ -34,7 +34,7 @@ const loadTaskForUpdate = handleActions({
   [actions.loadTask](state, { payload: { task } }) {
     return { ...task };
   }
-}, {text: 'INIT-TEXT'});
+}, {});
 
 export default combineReducers({
   tasks,

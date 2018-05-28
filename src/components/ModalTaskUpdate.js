@@ -16,12 +16,8 @@ class ModalTaskUpdate extends React.Component {
   };
 
   render() {
-    if (this.props.modalTaskUpdate.state === 'close') {
-      return null;
-    }
     const { taskId } = this.props.modalTaskUpdate;
-    const task = this.props.tasks.filter(({ id }) => id === taskId)[0];
-    this.props.loadTask({ task, });
+
     return(
       <div className="modal" style={{display: 'block'}} tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
@@ -34,7 +30,6 @@ class ModalTaskUpdate extends React.Component {
             </div>
             <form onSubmit={this.props.handleSubmit(this.saveUpdatedTask(taskId))}>
               <div className="modal-body">
-                <p>{ task.text }</p>
                 <Field
                   type="text" 
                   required
