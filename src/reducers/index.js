@@ -4,6 +4,18 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../actions/';
 import { reducer as formReducer } from 'redux-form';
 
+const tasksFetchingState = handleActions({
+	[actions.fetchTasksRequest]() {
+		return 'requested';
+	},
+	[actions.fetchTasksSuccess]() {
+		return 'successed';
+	},
+	[actions.fetchTasksFailure]() {
+		return 'failed';
+	},
+}, 'none');
+
 const tasks = handleActions({
     [actions.addTask](state, { payload: { task } }) {
         return { ...state, [task.id]: task };
@@ -22,6 +34,10 @@ const tasks = handleActions({
         newTasks[id].state = newTasks[id].state === 'active' ? 'finished' : 'active';
         return newTasks;
     },
+		[actions.fetchTasksSuccess](state, { payload: { tasks }}) {
+			console.log(tasks)
+			return tasks;
+		},
 }, {});
 
 const modalTaskUpdate = handleActions({
@@ -41,4 +57,5 @@ export default combineReducers({
   modalTaskUpdate,
   form: formReducer,
   loadTaskForUpdate,
+	tasksFetchingState,
 });

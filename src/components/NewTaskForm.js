@@ -20,7 +20,7 @@ class NewTaskForm extends React.Component {
               component="input"
               name="text"
             />
-            <button type="submit" className="btn btn-primary btn-sm">Add</button>
+            <button type="submit" className="btn btn-primary btn-sm" disabled={this.props.tasksFetchingState === 'requested'}>Add</button>
           </div>
         </form>
       </div>
