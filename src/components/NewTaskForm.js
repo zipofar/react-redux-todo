@@ -1,5 +1,6 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
+import ModalInformer from '../components/ModalInformer';
 
 class NewTaskForm extends React.Component {
 
@@ -10,6 +11,24 @@ class NewTaskForm extends React.Component {
  
 
   render() {
+		if (this.props.tasksFetchingState === 'failed') {
+			return(
+				<ModalInformer title="Warning">
+					<div className="alert alert-danger" role="alert">
+						Server not available
+					</div>
+				</ModalInformer>
+			);
+		}
+		
+		if (this.props.tasksFetchingState === 'requested') {
+			return(
+				<ModalInformer title="Loading">
+					<div className="loader"></div>
+				</ModalInformer>
+			);
+		}
+
     return(
       <div className="col-5">
         <form onSubmit={this.props.handleSubmit(this.addTask)} className="form-inline">
