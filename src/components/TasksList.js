@@ -13,7 +13,10 @@ export default class TasksList extends React.Component {
   }
 
   toggleTaskState = id => (e) => {
-    this.props.toggleTaskState({ id });
+		const taskId = id;
+		const task = this.props.tasks.filter(({ id }) => id === taskId)[0];
+		const newTaskState = task.state === 'active' ? 'finished' : 'active';
+		this.props.updateTask({ task: { ...task, state: newTaskState } });
   }
 
   removeTask = id => (e) => {

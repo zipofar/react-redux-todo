@@ -67,11 +67,6 @@ const tasks = handleActions({
     [actions.removeTaskSuccess](state, { payload: { id } }) {
         return _.omit(state, id);
     },
-    [actions.toggleTaskState](state, { payload: { id } }) {
-        const newTasks = { ...state };
-        newTasks[id].state = newTasks[id].state === 'active' ? 'finished' : 'active';
-        return newTasks;
-    },
 		[actions.fetchTasksSuccess](state, { payload: { tasks }}) {
 			return tasks;
 		},

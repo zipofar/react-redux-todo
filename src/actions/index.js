@@ -18,8 +18,6 @@ export const updateTaskRequest = createAction('TASK_UPDATE_REQUEST');
 export const updateTaskSuccess = createAction('TASK_UPDATE_SUCCESS');
 export const updateTaskFailure = createAction('TASK_UPDATE_FAILURE');
 
-//export const removeTask = createAction('REMOVE_TASK');
-//export const updateTask = createAction('UPDATE_TASK');
 
 export const loadTask = createAction('LOAD_TASK');
 export const toggleTaskState = createAction('TOGGLE_TASK_STATE');
