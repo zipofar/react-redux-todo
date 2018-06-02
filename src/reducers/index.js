@@ -16,17 +16,55 @@ const tasksFetchingState = handleActions({
 	},
 }, 'none');
 
+const taskAddingState = handleActions({
+	[actions.addTaskRequest]() {
+		return 'requested';
+	},
+	[actions.addTaskSuccess]() {
+		return 'successed';
+	},
+	[actions.addTaskFailure]() {
+		return 'failed';
+	},
+}, 'none');
+
+const taskRemovingState = handleActions({
+	[actions.removeTaskRequest]() {
+		return 'requested';
+	},
+	[actions.removeTaskSuccess]() {
+		return 'successed';
+	},
+	[actions.removeTaskFailure]() {
+		return 'failed';
+	},
+}, 'none');
+
+const taskUpdatingState = handleActions({
+	[actions.updateTaskRequest]() {
+		return 'requested';
+	},
+	[actions.updateTaskSuccess]() {
+		return 'successed';
+	},
+	[actions.updateTaskFailure]() {
+		return 'failed';
+	},
+}, 'none');
+
+
+
 const tasks = handleActions({
-    [actions.addTask](state, { payload: { task } }) {
-        return { ...state, [task.id]: task };
-    },
-    [actions.updateTask](state, { payload: { task } }) {
+		[actions.addTaskSuccess](state, { payload: { task } }) {
+			return { ...state, [task.id]: task };
+		},
+    [actions.updateTaskSuccess](state, { payload: { task } }) {
         const tasksWithoutCurrent = _.omit(state, [task.id]);
         const currentTask = state[task.id];
         const updatedTask = { ...currentTask, ...task }
         return { ...tasksWithoutCurrent, [task.id]: updatedTask };
     },
-    [actions.removeTask](state, { payload: { id } }) {
+    [actions.removeTaskSuccess](state, { payload: { id } }) {
         return _.omit(state, id);
     },
     [actions.toggleTaskState](state, { payload: { id } }) {
@@ -35,7 +73,6 @@ const tasks = handleActions({
         return newTasks;
     },
 		[actions.fetchTasksSuccess](state, { payload: { tasks }}) {
-			console.log(tasks)
 			return tasks;
 		},
 }, {});
@@ -58,4 +95,7 @@ export default combineReducers({
   form: formReducer,
   loadTaskForUpdate,
 	tasksFetchingState,
+	taskAddingState,
+	taskRemovingState,
+	taskUpdatingState,
 });

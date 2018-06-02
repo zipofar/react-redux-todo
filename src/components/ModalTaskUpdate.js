@@ -10,7 +10,7 @@ class ModalTaskUpdate extends React.Component {
   };
 
   saveUpdatedTask = id => (values) => {
-    this.props.updateTask({ task: {id: id, ...values} });
+    this.props.updateTask({ task: { id, ...values } });
     this.props.toggleModalTaskUpdate({ modalState: { state: 'close' } });
     this.props.reset();
   };

@@ -17,7 +17,7 @@ export default class TasksList extends React.Component {
   }
 
   removeTask = id => (e) => {
-    this.props.removeTask({ id, });
+  	this.props.removeTask(id);
   }
 
   toggleModalUpdateTask = id => (e) => {
@@ -30,7 +30,6 @@ export default class TasksList extends React.Component {
 
   renderList() {
     const { tasks } = this.props;
-
     return(
       <ul className="list-group">
         { tasks
